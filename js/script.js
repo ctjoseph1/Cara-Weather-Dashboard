@@ -70,18 +70,20 @@ function getDataFromApi(cityName) {
             // cardDiv.attr('class', 'card-body')
             // cardDiv.text('Hello there')
             // $('#forecast').append(cardDiv)
-            var cardDiv= $("<div>")
+
+            //Day 1 (array[0])
+            var cardDiv = $("<div>")
             cardDiv.attr('class', 'card')
             cardDiv.attr('style', 'width: 18rem;')
-            
+
             var cardBody = $('<div>')
             cardBody.attr('class', 'card-body')
 
-            var dateH5= $('<h5>')
-            dateH5.attr ('class', 'card-title')
+            var dateH5 = $('<h5>')
+            dateH5.attr('class', 'card-title')
             dateH5.text(fiveDays[0].dt_txt)
 
-            var iconImg= $('<img>')
+            var iconImg = $('<img>')
             iconImg.attr('src', 'https://openweathermap.org/img/wn/10d@2x.png')
             iconImg.attr('class', 'card-subtitle mb-2 text-body-secondary')
 
@@ -89,14 +91,55 @@ function getDataFromApi(cityName) {
             tempEl.attr("class", "card-text");
             tempEl.text(`Temp: ${fiveDays[0].main.temp}`)
 
+            var windEl = $("<p>")
+            windEl.attr("class", "card-text");
+            windEl.text(`Wind: ${fiveDays[0].wind.speed}`)
+
+            var humidityEl = $("<p>")
+            humidityEl.attr("class", "card-text");
+            humidityEl.text(`Humidity: ${fiveDays[0].main.humidity}`)
+            //create all x5 cards- likely same format as above but diff date?
+
+            //Day 2 (array[1])
+            var cardDiv = $("<div>")
+            cardDiv.attr('class', 'card')
+            cardDiv.attr('style', 'width: 18rem;')
+
+            var cardBody = $('<div>')
+            cardBody.attr('class', 'card-body')
+
+            var dateH5 = $('<h5>')
+            dateH5.attr('class', 'card-title')
+            dateH5.text(fiveDays[1].dt_txt)
+
+            var iconImg = $('<img>')
+            iconImg.attr('src', 'https://openweathermap.org/img/wn/10d@2x.png')
+            iconImg.attr('class', 'card-subtitle mb-2 text-body-secondary')
+
+            var tempEl = $("<p>")
+            tempEl.attr("class", "card-text");
+            tempEl.text(`Temp: ${fiveDays[1].main.temp}`)
+
+            var windEl = $("<p>")
+            windEl.attr("class", "card-text");
+            windEl.text(`Wind: ${fiveDays[1].wind.speed}`)
+
+            var humidityEl = $("<p>")
+            humidityEl.attr("class", "card-text");
+            humidityEl.text(`Humidity: ${fiveDays[1].main.humidity}`)
+
+            // as above do wind, humidity THEN
+            // combine them by append
 
             // combine them\
-            cardBody.append(dateH5, iconImg, tempEl)
+            cardBody.append(dateH5, iconImg, tempEl, windEl, humidityEl)
             cardDiv.append(cardBody);
 
             $("#forecast").append(cardDiv)
+
         })
 }
+
 
 
 /*
