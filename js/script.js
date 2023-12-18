@@ -28,32 +28,90 @@
 // 4. When user click on the search history, call weather API and show the result in the HTML
 // 5. CSS
 
-$("#search-form").on("submit",function(event){
-   event.preventDefault()
-//    console.log(event.target)
- var cityName = $("#search-input").val()   
-getDataFromApi(cityName)
+$("#search-form").on("submit", function (event) {
+    event.preventDefault()
+    //    console.log(event.target)
+    var cityName = $("#search-input").val()
+    getDataFromApi(cityName)
 
 })
 
-var cardDiv = $("<div>")
-cardDiv.attr('class', 'card-body')
-cardDiv.text('Hello there')
-$('#forecast').append(cardDiv) 
+function getDataFromApi(cityName) {
+    $(".card-title").text("Weather Information for " + cityName);
 
-function getDataFromApi(cityName){
-    fetch('https://api.openweathermap.org/data/2.5/forecast?q=' + cityName +'&appid=63827b77bc19fce737245d79e9a2106f&units=metric')
 
-    .then(function(response) {
-        return response.json();
-    })
-    .then(function(data) {
-        console.log(data);
-    })
+    var cardDiv = $("<div>")
+    cardDiv.attr('class', 'card-body')
+    cardDiv.text('Hello there')
+    $('#forecast').append(cardDiv)
 }
 
-{/* <div class="card-body">
-          <h5 class="card-title">Card title</h5>
-          <h6 class="card-subtitle mb-2 text-body-secondary">Card subtitle</h6>
-          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-        </div> */}
+function getDataFromApi(cityName) {
+    fetch('https://api.openweathermap.org/data/2.5/forecast?q=' + cityName + '&appid=63827b77bc19fce737245d79e9a2106f&units=metric')
+
+        .then(function (response) {
+            // const data =  response.json();
+            return response.json();
+        })
+
+        .then(function (data) {
+            const myCard = document.querySelector('.card');
+            console.log(data);
+
+            var fiveDays = [
+                data.list[0],
+                data.list[8],
+                data.list[16],
+                data.list[24],
+                data.list[32],
+            ]
+            console.log(fiveDays)
+            //         var cardDiv = $("<div>")
+            // cardDiv.attr('class', 'card-body')
+            // cardDiv.text('Hello there')
+            // $('#forecast').append(cardDiv)
+            var cardDiv= $("<div>")
+            cardDiv.attr('class', 'card')
+            cardDiv.attr('style', 'width: 18rem;')
+            
+            var cardBody = $('<div>')
+            cardBody.attr('class', 'card-body')
+
+            var dateH5= $('<h5>')
+            dateH5.attr ('class', 'card-title')
+            dateH5.text(fiveDays[0].dt_txt)
+
+            var iconImg= $('<img>')
+            iconImg.attr('src', 'https://openweathermap.org/img/wn/10d@2x.png')
+            iconImg.attr('class', 'card-subtitle mb-2 text-body-secondary')
+
+            var tempEl = $("<p>")
+            tempEl.attr("class", "card-text");
+            tempEl.text(`Temp: ${fiveDays[0].main.temp}`)
+
+
+            // combine them\
+            cardBody.append(dateH5, iconImg, tempEl)
+            cardDiv.append(cardBody);
+
+            $("#forecast").append(cardDiv)
+        })
+}
+
+
+/*
+<div class="card" style="width: 18rem;">
+    <div class="card-body">
+        <h5 class="card-title">18/12/2023</h5>
+        <img src="https://openweathermap.org/img/wn/10d@2x.png" class= "card-subtitle mb-2 text-body-secondary"></img>
+        <p class="card-text">Temp: 18.89</p>
+        <p class="card-text">Wind: 2.76KPH</p>
+        <p class="card-text">Humidity: 44%</p>
+    </div>
+</div>
+*/
+
+
+
+// 0 8 16 24 32 5 days at 9pm
+
