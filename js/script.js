@@ -65,6 +65,7 @@ function getDataFromApi(cityName) {
                 data.list[24],
                 data.list[32],
             ]
+            
             console.log(fiveDays)
             //         var cardDiv = $("<div>")
             // cardDiv.attr('class', 'card-body')
