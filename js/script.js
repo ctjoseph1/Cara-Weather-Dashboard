@@ -92,15 +92,15 @@ function getDataFromApi(cityName) {
 
             var tempEl = $("<p>")
             tempEl.attr("class", "card-text");
-            tempEl.text(`Temp: ${fiveDays[0].main.temp}`)
+            tempEl.text(`Temp: ${fiveDays[i].main.temp}`)
 
             var windEl = $("<p>")
             windEl.attr("class", "card-text");
-            windEl.text(`Wind: ${fiveDays[0].wind.speed}`)
+            windEl.text(`Wind: ${fiveDays[i].wind.speed}`)
 
             var humidityEl = $("<p>")
             humidityEl.attr("class", "card-text");
-            humidityEl.text(`Humidity: ${fiveDays[0].main.humidity}`)
+            humidityEl.text(`Humidity: ${fiveDays[i].main.humidity}`)
 
 
             // as above do wind, humidity THEN
@@ -134,3 +134,23 @@ function getDataFromApi(cityName) {
 
 // 0 8 16 24 32 5 days at 9pm
 
+// 2. When user searches for a city, store it in local storage
+// ... (your existing code)
+
+$("#search-form").on("submit", function (event) {
+    event.preventDefault();
+    var cityName = $("#search-input").val();
+    getDataFromApi(cityName);
+
+    // Store the searched city in local storage
+    storeCityInLocalStorage(cityName);
+});
+
+function storeCityInLocalStorage(cityName) {
+
+    // Store the updated search history back in local storage ???
+    localStorage.setItem("searchHistory", JSON.stringify(searchHistory));
+}
+
+
+// 3. On initial page load load the search history and show it as a list in the HTML

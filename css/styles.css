@@ -1,0 +1,16 @@
+
+/* Code to change the card-body color */
+.card-body {
+    background-color: rgb(38, 40, 57);
+    color: #ffffff;
+}
+
+/* CSS code to create a custom gradient for the header */
+.weather-header {
+    background: linear-gradient(to right, #295deb, #0c002a); 
+}
+
+.search-button {
+    background-color: #589afe; 
+    min-width: 185px;
+}
