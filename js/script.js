@@ -137,6 +137,8 @@ function getDataFromApi(cityName) {
 // 2. When user searches for a city, store it in local storage
 // ... (your existing code)
 
+
+
 $("#search-form").on("submit", function (event) {
     event.preventDefault();
     var cityName = $("#search-input").val();
@@ -144,13 +146,71 @@ $("#search-form").on("submit", function (event) {
 
     // Store the searched city in local storage
     storeCityInLocalStorage(cityName);
+    var history = $('#history')
+
+    history.empty()
+    displayHistory()
 });
 
 function storeCityInLocalStorage(cityName) {
-
+    var searchHistory = JSON.parse(localStorage.getItem("searchHistory")) || []
+    searchHistory.push(cityName)
     // Store the updated search history back in local storage ???
     localStorage.setItem("searchHistory", JSON.stringify(searchHistory));
 }
-
+// // HERE
 
 // 3. On initial page load load the search history and show it as a list in the HTML
+function displayHistory(){
+var searchHistory = JSON.parse(localStorage.getItem("searchHistory")) || []
+var history = $('#history')
+var cityList = $('<ul>')
+history.append(cityList) 
+if (searchHistory){
+ searchHistory.forEach(function(city){
+   var cityEl = $('<li>') //Button data attribute first create button inside of li, event listner, add data attr to button which will be the name of the city then when button is clicked (data-city for button)
+   cityEl.text(city)
+   cityList.append(cityEl)
+
+ })   
+}
+} 
+displayHistory()
+
+
+// This works and needs to replace lines 163-178, but it doesn't clear the existing cards after new city is:
+// // ... (your existing code)
+
+// function displayHistory() {
+//     var searchHistory = JSON.parse(localStorage.getItem("searchHistory")) || [];
+//     var history = $('#history');
+//     var cityList = $('<ul>');
+
+//     if (searchHistory.length > 0) {
+//         searchHistory.forEach(function (city) {
+//             var cityButton = $('<button>');
+//             cityButton.text(city);
+//             cityButton.addClass('btn btn-secondary history-button'); // Add Bootstrap button styles
+//             cityButton.attr('data-city', city); // Set data attribute to the city name
+
+//             var cityListItem = $('<li>');
+//             cityListItem.append(cityButton);
+
+//             cityList.append(cityListItem);
+
+//             // Add click event listener to the button
+//             cityButton.on('click', function () {
+//                 var selectedCity = $(this).data('city');
+//                 getDataFromApi(selectedCity);
+//             });
+//         });
+//         history.empty().append(cityList);
+//     } else {
+//         history.empty();
+//     }
+// }
+
+// // ... (your existing code)
+
+// // Call displayHistory initially and after each search
+// displayHistory();
